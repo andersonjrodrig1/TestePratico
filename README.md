@@ -1,40 +1,10 @@
 # TestePratico
-Teste pratico pra fins de avalização
+Teste pratico pra fins de avaliação
 
 #Aplicacao
-Criação de uma solução com 2 projetos: 
-* TestePratico -> 
-	aplicação WebAPI Rest com seguintes recursos:
-		- retorno de valores JSON 
-		- persitencia com EntityFramework v6.2.0
-		- AspNet.Cors para inibir a falha da comunicação http
-		- Paradigma POO (Programação Orientada à Objetos)
-		- Uso do IIS Local na porta 8090
-		- String de conexão utilizada no Web.config
-			<connectionStrings>
-				<add name="Modelo" connectionString="data source=Anderson;initial catalog=TestePratico;persist security info=True;user id=sa;password=master;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
-			</connectionStrings>
-		- Url's da aplicação:
-			http://localhost:8090/api/vendaRealizada/buscar - get
-			http://localhost:8090/api/comissao/buscar - get
-			http://localhost:8090/api/produto/listar - get
-			http://localhost:8090/api/produto/pesquisar/nmProduto - get
-			http://localhost:8090/api/produto/atualizar - put
-			http://localhost:8090/api/produto/cadastrar - post
-			http://localhost:8090/api/vendedor/buscar - get
-			http://localhost:8090/api/vendedor/cadastrar - post
-
-* TesteWeb -> 
-	aplicação WebForm com os seguintes recursos:
-		- consome a WebApi 
-		- AngularJS para requisição e exibição de informações. (Obs.: Recursos do Angular foram implementados inline)
-		- Bootstrap para melhorar a apresentação da interface
-		- Uso do IIS Local na porta 8091
-		- Url's da aplicação:
-			http://localhost:8091/Default.aspx
-			http://localhost:8091/ListaProdutos.aspx
-			http://localhost:8091/CadastroProduto.aspx
-			http://localhost:8091/CadastroVendedor.aspx
+Criação de uma solução com 2 projetos publicados no github: 
+* TestePratico => WebApi
+* Venda-Produto => Angular 2
 
 # Scripts
 Abaixo segue scripts usados durante a criação da aplicação
