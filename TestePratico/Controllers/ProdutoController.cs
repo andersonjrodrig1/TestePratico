@@ -30,11 +30,11 @@ namespace TestePratico.Controllers
         // GET
         [HttpGet]
         [Route("listar")]
-        public List<Produto> listarProdutos()
+        public List<Produto> listarProdutos([FromUri]Produto produto)
         {
             try
             {
-                return new ProdutoService().buscarProdutos();
+                return new ProdutoService().buscarProdutos(produto);
             }
             catch(Exception e)
             {
@@ -44,14 +44,29 @@ namespace TestePratico.Controllers
 
         // GET
         [HttpGet]
-        [Route("pesquisar/{nmProduto}")]
-        public List<Produto> listarProdutos(string nmProduto)
+        [Route("listar/{nmProduto}")]
+        public List<Produto> listarProdutosNome(string nmProduto)
         {
             try
             {
-                return new ProdutoService().buscarProdutos(nmProduto);
+                return new ProdutoService().buscarProdutos(new Produto() { nmProduto = nmProduto });
             }
             catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        // GET
+        [HttpGet]
+        [Route("listar/{vrProduto:decimal}")]
+        public List<Produto> listarProdutosCodigo(decimal vrProduto)
+        {
+            try
+            {
+                return new ProdutoService().buscarProdutos(new Produto() { vrProduto = vrProduto });
+            }
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }

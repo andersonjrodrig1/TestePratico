@@ -15,6 +15,8 @@ namespace TestePratico
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            config.Routes.IgnoreRoute("listar", ".html");
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
@@ -22,10 +24,9 @@ namespace TestePratico
             );
 
             config.Routes.MapHttpRoute(
-                name: "CadastroProduto",
-                routeTemplate: "api/{controller}/{nome}/{valor}",
-                defaults: new { controller = "Produto", action = "cadastrarProduto" }
-            );
+                name: "APIProduto",
+                routeTemplate: "api/{controller}/{action}/{valor}",
+                defaults: new { action = "listarProdutosNome", controller = "Produto" });
 
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);

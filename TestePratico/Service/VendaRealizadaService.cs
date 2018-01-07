@@ -22,7 +22,7 @@ namespace TestePratico.Service
 
             if (vendas != null && vendas.Count > 0)
             {
-                produtos = new ProdutoService().buscarProdutos();
+                produtos = new ProdutoService().listarProdutos();
                 vendedores = new VendedorService().buscarVendedores();
             }
 

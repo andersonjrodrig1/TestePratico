@@ -17,31 +17,19 @@ namespace TestePratico.Repository
             db.SaveChanges();
         }
 
-        public List<Produto> buscarProdutos()
-        {
-            Modelo db = new Modelo();
-            var produtos = db.Produto.ToList();
-
-            return produtos;
-        }
-        
-        public List<Produto> buscarProdutos(string nmProduto)
-        {
-            List<Produto> listProdutos = this.buscarProdutos();
-            var produtos = listProdutos.Where(p => p.nmProduto.Contains(nmProduto)).ToList();
-
-            return produtos;
-        }
-
         public List<Produto> buscarProdutos(Produto produto)
         {
             Modelo db = new Modelo();
             List<Produto> produtos = null;
 
-            if (produto != null && (!string.IsNullOrEmpty(produto.nmProduto) || produto.vrProduto > 0))
-                produtos = db.Produto.Where(p => p.cdProduto == produto.cdProduto || p.vrProduto == produto.vrProduto).ToList();
+            if (produto != null) {
+                if (produto.vrProduto > 0 && !string.IsNullOrEmpty(produto.nmProduto))
+                    produtos = db.Produto.Where(p => p.vrProduto == produto.vrProduto && p.nmProduto.ToUpper().Contains(p.nmProduto.ToUpper())).ToList();
+                else
+                    produtos = this.buscarProdutoPorFiltro(produto);
+            }
             else
-                produtos = this.buscarProdutos();
+                produtos = this.listarProdutos();
 
             return produtos;
         }
@@ -50,7 +38,7 @@ namespace TestePratico.Repository
         {
             Modelo db = new Modelo();
 
-            var produtos = this.buscarProdutos();
+            var produtos = this.listarProdutos();
             var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
 
             if(prod == null)
@@ -59,6 +47,30 @@ namespace TestePratico.Repository
             db.Produto.Add(produto);
             db.Entry(produto).State = EntityState.Modified;
             db.SaveChanges();                
+        }
+
+        public List<Produto> listarProdutos()
+        {
+            Modelo db = new Modelo();
+            var produtos = db.Produto.ToList();
+
+            return produtos;
+        }
+
+        private List<Produto> buscarProdutoPorFiltro(Produto produto)
+        {
+            var listProdutos = this.listarProdutos();
+            List<Produto> produtos = null;
+
+            if (produto.vrProduto > 0)
+            {
+                var vrProduto = produto.vrProduto + decimal.Parse("0,99");
+                produtos = listProdutos.Where(l => l.vrProduto >= produto.vrProduto && l.vrProduto <= vrProduto).ToList();
+            }
+            else if (!string.IsNullOrEmpty(produto.nmProduto))
+                produtos = listProdutos.Where(l => l.nmProduto.ToLower().Contains(produto.nmProduto.ToLower())).ToList();
+
+            return produtos;
         }
     }
 }
