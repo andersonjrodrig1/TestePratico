@@ -86,5 +86,21 @@ namespace TestePratico.Controllers
                 throw new Exception(e.Message);
             }
         }
+
+        //DELETE
+        [HttpDelete]
+        [Route("deletar/{cdProduto:int}")]
+        public bool deletarProduto(int cdProduto)
+        {
+            try
+            {
+                new ProdutoService().deletarProduto(new Produto() { cdProduto = cdProduto });
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

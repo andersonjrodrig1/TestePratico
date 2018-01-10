@@ -57,6 +57,22 @@ namespace TestePratico.Repository
             return produtos;
         }
 
+        public void deletarProduto(Produto produto)
+        {
+            Modelo db = new Modelo();
+
+            var produtos = this.listarProdutos();
+            var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
+
+            if (prod == null)
+                throw new Exception("Produto não encontrado!");
+
+            db.Produto.Attach(produto);
+            db.Entry(produto).State = EntityState.Deleted;
+
+            db.SaveChanges();
+        }
+
         private List<Produto> buscarProdutoPorFiltro(Produto produto)
         {
             var listProdutos = this.listarProdutos();
