@@ -34,14 +34,17 @@ namespace TestePratico.Repository
             return produtos;
         }
 
-        public void atualizarProduto(Produto produto)
+        public void atualizarProduto(int cdProduto, Produto produto)
         {
+            if (cdProduto != produto.cdProduto)
+                throw new Exception("Dados incosistentes!");
+
             Modelo db = new Modelo();
 
             var produtos = this.listarProdutos();
             var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
 
-            if(prod == null)
+            if (prod == null)
                 throw new Exception("Produto não encontrado!");
 
             db.Produto.Add(produto);

@@ -74,12 +74,12 @@ namespace TestePratico.Controllers
 
         //PUT
         [HttpPut]
-        [Route("atualizar")]
-        public void atualizarProduto([FromBody]Produto produto)
+        [Route("atualizar/{cdProduto:int}")]
+        public void atualizarProduto(int cdProduto, [FromBody]Produto produto)
         {
             try
             {
-                new ProdutoService().atualizarProduto(produto);
+                new ProdutoService().atualizarProduto(cdProduto, produto);
             }
             catch (Exception e)
             {
