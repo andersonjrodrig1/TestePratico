@@ -4,14 +4,18 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TestePratico.Models;
+using TestePratico.Service;
 
 namespace TestePratico.Repository
 {
     public class ProdutoService
     {
+        private Modelo db = null;
+
         public void cadastrarProduto(Produto produto)
         {
-            Modelo db = new Modelo();
+            if (db == null)
+                db = new Modelo();
 
             db.Produto.Add(produto);
             db.SaveChanges();
@@ -19,7 +23,9 @@ namespace TestePratico.Repository
 
         public List<Produto> buscarProdutos(Produto produto)
         {
-            Modelo db = new Modelo();
+            if (db == null)
+                db = new Modelo();
+
             List<Produto> produtos = null;
 
             if (produto != null) {
@@ -39,7 +45,8 @@ namespace TestePratico.Repository
             if (cdProduto != produto.cdProduto)
                 throw new Exception("Dados incosistentes!");
 
-            Modelo db = new Modelo();
+            if (db == null)
+                db = new Modelo();
 
             var produtos = this.listarProdutos();
             var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
@@ -54,24 +61,25 @@ namespace TestePratico.Repository
 
         public List<Produto> listarProdutos()
         {
-            Modelo db = new Modelo();
+            if (db == null)
+                db = new Modelo();
+
             var produtos = db.Produto.ToList();
 
             return produtos;
         }
 
-        public void deletarProduto(Produto produto)
+        public void deletarProduto(List<Produto> produtos)
         {
-            Modelo db = new Modelo();
+            new VendaRealizadaService().deletarVendaRealizada(produtos);
 
-            var produtos = this.listarProdutos();
-            var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
+            if (db == null)
+                db = new Modelo();
 
-            if (prod == null)
-                throw new Exception("Produto não encontrado!");
-
-            db.Produto.Attach(produto);
-            db.Entry(produto).State = EntityState.Deleted;
+            produtos.ForEach(p => {
+                db.Produto.Attach(p);
+                db.Entry(p).State = EntityState.Deleted;
+            });
 
             db.SaveChanges();
         }

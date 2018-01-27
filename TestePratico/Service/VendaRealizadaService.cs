@@ -10,9 +10,12 @@ namespace TestePratico.Service
 {
     public class VendaRealizadaService
     {
+        private Modelo db = null;
+
         public List<VendaRealizada> buscarVendasDia()
         {
-            Modelo db = new Modelo();
+            if (db == null)
+                db = new Modelo();
 
             List<Produto> produtos = null;
             List<Vendedor> vendedores = null;
@@ -33,6 +36,55 @@ namespace TestePratico.Service
             }
 
             return vendas;
+        }
+
+        public List<VendaRealizada> buscarVendas()
+        {
+            if (db == null)
+                db = new Modelo();
+
+            var vendas = db.VendaRealizada.ToList();
+
+            return vendas;
+        }
+
+        public void deletarVendaRealizada(VendaRealizada venda)
+        {
+            if (db == null)
+                db = new Modelo();
+
+            db.VendaRealizada.Attach(venda);
+            db.Entry(venda).State = EntityState.Deleted;
+
+            db.SaveChanges();
+        }
+
+        public void deletarVendaRealizada(List<Produto> produtos)
+        {
+            if (db == null)
+                db = new Modelo();
+
+            var vendas = this.buscarVendas();
+            var listVendas = new List<VendaRealizada>();
+
+            produtos.ForEach(produto => {
+                var vds = vendas.Where(v => v.cdProduto == produto.cdProduto).ToList();
+
+                if (vds != null)
+                    listVendas.AddRange(vds);
+            });
+
+            if (listVendas != null && listVendas.Count > 0)
+            {
+                listVendas.ForEach(v =>
+                {
+                    db.VendaRealizada.Add(v);
+                    db.Entry(v).State = EntityState.Deleted;
+                    db.VendaRealizada.Remove(v);
+                });
+            }
+
+            db.SaveChanges();
         }
     }
 }

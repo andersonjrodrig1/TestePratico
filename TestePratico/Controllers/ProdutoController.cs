@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TestePratico.Models;
 using TestePratico.Repository;
+using TestePratico.Service;
 
 namespace TestePratico.Controllers
 {
     [RoutePrefix("api/produto")]
     public class ProdutoController : ApiController
     {
-        //POST
+        #region POST
         [HttpPost]
         [Route("cadastrar")]
         public void cadastrarProduto([FromBody]Produto produto)
@@ -27,7 +29,23 @@ namespace TestePratico.Controllers
             }
         }
 
-        // GET
+        [HttpPost]
+        [Route("export")]
+        public MemoryStream exportExcel(List<Produto> produtos)
+        {
+            try
+            {
+                return new ExcelService().ExportExcel<Produto>(produtos);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        #endregion
+
+        #region GET
         [HttpGet]
         [Route("listar")]
         public List<Produto> listarProdutos([FromUri]Produto produto)
@@ -42,7 +60,6 @@ namespace TestePratico.Controllers
             }
         }
 
-        // GET
         [HttpGet]
         [Route("listar/{nmProduto}")]
         public List<Produto> listarProdutosNome(string nmProduto)
@@ -57,7 +74,6 @@ namespace TestePratico.Controllers
             }
         }
 
-        // GET
         [HttpGet]
         [Route("listar/{vrProduto:decimal}")]
         public List<Produto> listarProdutosCodigo(decimal vrProduto)
@@ -72,7 +88,9 @@ namespace TestePratico.Controllers
             }
         }
 
-        //PUT
+        #endregion
+
+        #region PUT
         [HttpPut]
         [Route("atualizar/{cdProduto:int}")]
         public void atualizarProduto(int cdProduto, [FromBody]Produto produto)
@@ -87,14 +105,16 @@ namespace TestePratico.Controllers
             }
         }
 
-        //DELETE
+        #endregion
+
+        #region DELETE
         [HttpDelete]
-        [Route("deletar/{cdProduto:int}")]
-        public bool deletarProduto(int cdProduto)
+        [Route("deletar")]
+        public bool deletarProduto([FromBody] List<Produto> produtos)
         {
             try
             {
-                new ProdutoService().deletarProduto(new Produto() { cdProduto = cdProduto });
+                new ProdutoService().deletarProduto(produtos);
                 return true;
             }
             catch (Exception e)
@@ -102,5 +122,7 @@ namespace TestePratico.Controllers
                 throw new Exception(e.Message);
             }
         }
+
+        #endregion
     }
 }
