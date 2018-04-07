@@ -8,12 +8,12 @@ using TestePratico.Service;
 
 namespace TestePratico.Controllers
 {
-    [RoutePrefix("api/vendaRealizada")]
+    [RoutePrefix("api")]
     public class VendaRealizadaController : ApiController
     {
         //GET
         [HttpGet]
-        [Route("buscar")]
+        [Route("venda_realizada")]
         public List<VendaRealizada> buscarVendasDia()
         {
             try

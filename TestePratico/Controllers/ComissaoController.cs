@@ -9,12 +9,12 @@ using TestePratico.Service;
 
 namespace TestePratico.Controllers
 {
-    [RoutePrefix("api/comissao")]
+    [RoutePrefix("api")]
     public class ComissaoController : ApiController
     {
         //GET
         [HttpGet]
-        [Route("buscar")]
+        [Route("comissao")]
         public List<Comissao> buscarComissaoVendedor()
         {
             return new ComissaoService().buscarComissoes();

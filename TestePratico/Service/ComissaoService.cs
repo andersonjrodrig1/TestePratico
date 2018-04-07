@@ -10,8 +10,7 @@ namespace TestePratico.Service
     {
         public List<Comissao> buscarComissoes()
         {
-            List<Comissao> comissoes = null;
-
+            var comissoes = new List<Comissao>();
             var vendasDia = new VendaRealizadaService().buscarVendasDia();
 
             if (vendasDia != null && vendasDia.Count > 0)
@@ -21,10 +20,7 @@ namespace TestePratico.Service
                 var vendasPorVendedor = vendasDia.GroupBy(
                     v => v.Vendedor, 
                     v => v.Produto, 
-                    (key, g) => new {
-                        Vendedor = key,
-                        Produtos = g.ToList()
-                    });
+                    (key, g) => new { Vendedor = key, Produtos = g.ToList() });
 
                 foreach (var vendas in vendasPorVendedor)
                 {
