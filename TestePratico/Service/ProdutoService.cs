@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using TestePratico.Context;
 using TestePratico.Models;
 using TestePratico.Service;
 
@@ -12,7 +13,7 @@ namespace TestePratico.Repository
     {
         private Modelo db = null;
 
-        public void cadastrarProduto(Produto produto)
+        public void CadastrarProduto(Produto produto)
         {
             if (db == null)
                 db = new Modelo();
@@ -21,7 +22,7 @@ namespace TestePratico.Repository
             db.SaveChanges();
         }
 
-        public List<Produto> buscarProdutos(Produto produto)
+        public List<Produto> BuscarProdutos(Produto produto)
         {
             if (db == null)
                 db = new Modelo();
@@ -32,15 +33,15 @@ namespace TestePratico.Repository
                 if (produto.vrProduto > 0 && !string.IsNullOrEmpty(produto.nmProduto))
                     produtos = db.Produto.Where(p => p.vrProduto == produto.vrProduto && p.nmProduto.ToUpper().Contains(p.nmProduto.ToUpper())).ToList();
                 else
-                    produtos = this.buscarProdutoPorFiltro(produto);
+                    produtos = this.BuscarProdutoPorFiltro(produto);
             }
             else
-                produtos = this.listarProdutos();
+                produtos = this.ListarProdutos();
 
             return produtos;
         }
 
-        public void atualizarProduto(int cdProduto, Produto produto)
+        public void AtualizarProduto(int cdProduto, Produto produto)
         {
             if (cdProduto != produto.cdProduto)
                 throw new Exception("Dados incosistentes!");
@@ -48,7 +49,7 @@ namespace TestePratico.Repository
             if (db == null)
                 db = new Modelo();
 
-            var produtos = this.listarProdutos();
+            var produtos = this.ListarProdutos();
             var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
 
             if (prod == null)
@@ -59,7 +60,7 @@ namespace TestePratico.Repository
             db.SaveChanges();                
         }
 
-        public List<Produto> listarProdutos()
+        public List<Produto> ListarProdutos()
         {
             if (db == null)
                 db = new Modelo();
@@ -69,9 +70,9 @@ namespace TestePratico.Repository
             return produtos;
         }
 
-        public void deletarProduto(List<Produto> produtos)
+        public void DeletarProduto(List<Produto> produtos)
         {
-            new VendaRealizadaService().deletarVendaRealizada(produtos);
+            new VendaRealizadaService().DeletarVendaRealizada(produtos);
 
             if (db == null)
                 db = new Modelo();
@@ -84,9 +85,9 @@ namespace TestePratico.Repository
             db.SaveChanges();
         }
 
-        private List<Produto> buscarProdutoPorFiltro(Produto produto)
+        private List<Produto> BuscarProdutoPorFiltro(Produto produto)
         {
-            var listProdutos = this.listarProdutos();
+            var listProdutos = this.ListarProdutos();
             List<Produto> produtos = null;
 
             if (produto.vrProduto > 0)

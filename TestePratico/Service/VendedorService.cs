@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TestePratico.Context;
 using TestePratico.Models;
 
 namespace TestePratico.Service
 {
     public class VendedorService
     {
-        public void cadastrarVendedor(Vendedor vendedor)
+        public void CadastrarVendedor(Vendedor vendedor)
         {
             Modelo db = new Modelo();
 
@@ -16,7 +17,7 @@ namespace TestePratico.Service
             db.SaveChanges();
         }
 
-        public List<Vendedor> buscarVendedores()
+        public List<Vendedor> BuscarVendedores()
         {
             Modelo db = new Modelo();
             var vendedores = db.Vendedor.ToList();

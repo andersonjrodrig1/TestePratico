@@ -17,11 +17,11 @@ namespace TestePratico.Controllers
         #region POST
         [HttpPost]
         [Route("cadastrar")]
-        public void cadastrarProduto([FromBody]Produto produto)
+        public void CadastrarProduto([FromBody]Produto produto)
         {
             try
             {
-                new ProdutoService().cadastrarProduto(produto);
+                new ProdutoService().CadastrarProduto(produto);
             }
             catch(Exception e)
             {
@@ -31,7 +31,7 @@ namespace TestePratico.Controllers
 
         [HttpPost]
         [Route("export")]
-        public MemoryStream exportExcel(List<Produto> produtos)
+        public MemoryStream ExportExcel(List<Produto> produtos)
         {
             try
             {
@@ -48,11 +48,11 @@ namespace TestePratico.Controllers
         #region GET
         [HttpGet]
         [Route("listar")]
-        public List<Produto> listarProdutos([FromUri]Produto produto)
+        public List<Produto> ListarProdutos([FromUri]Produto produto)
         {
             try
             {
-                return new ProdutoService().buscarProdutos(produto);
+                return new ProdutoService().BuscarProdutos(produto);
             }
             catch(Exception e)
             {
@@ -62,11 +62,11 @@ namespace TestePratico.Controllers
 
         [HttpGet]
         [Route("listar/{nmProduto}")]
-        public List<Produto> listarProdutosNome(string nmProduto)
+        public List<Produto> ListarProdutosNome(string nmProduto)
         {
             try
             {
-                return new ProdutoService().buscarProdutos(new Produto() { nmProduto = nmProduto });
+                return new ProdutoService().BuscarProdutos(new Produto() { nmProduto = nmProduto });
             }
             catch(Exception e)
             {
@@ -76,11 +76,11 @@ namespace TestePratico.Controllers
 
         [HttpGet]
         [Route("listar/{vrProduto:decimal}")]
-        public List<Produto> listarProdutosCodigo(decimal vrProduto)
+        public List<Produto> ListarProdutosCodigo(decimal vrProduto)
         {
             try
             {
-                return new ProdutoService().buscarProdutos(new Produto() { vrProduto = vrProduto });
+                return new ProdutoService().BuscarProdutos(new Produto() { vrProduto = vrProduto });
             }
             catch (Exception e)
             {
@@ -93,11 +93,11 @@ namespace TestePratico.Controllers
         #region PUT
         [HttpPut]
         [Route("atualizar/{cdProduto:int}")]
-        public void atualizarProduto(int cdProduto, [FromBody]Produto produto)
+        public void AtualizarProduto(int cdProduto, [FromBody]Produto produto)
         {
             try
             {
-                new ProdutoService().atualizarProduto(cdProduto, produto);
+                new ProdutoService().AtualizarProduto(cdProduto, produto);
             }
             catch (Exception e)
             {
@@ -110,11 +110,11 @@ namespace TestePratico.Controllers
         #region DELETE
         [HttpDelete]
         [Route("deletar")]
-        public bool deletarProduto([FromBody] List<Produto> produtos)
+        public bool DeletarProduto([FromBody] List<Produto> produtos)
         {
             try
             {
-                new ProdutoService().deletarProduto(produtos);
+                new ProdutoService().DeletarProduto(produtos);
                 return true;
             }
             catch (Exception e)

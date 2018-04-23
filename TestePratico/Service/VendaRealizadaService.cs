@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using TestePratico.Context;
 using TestePratico.Models;
 using TestePratico.Repository;
 
@@ -12,46 +13,51 @@ namespace TestePratico.Service
     {
         private Modelo db = null;
 
-        public List<VendaRealizada> buscarVendasDia()
+        public List<VendaRealizada> BuscarVendasRealizadas()
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             List<Produto> produtos = null;
             List<Vendedor> vendedores = null;
 
-            var agora = DateTime.Now.Date;
-            var vendas = db.VendaRealizada.Where(v => DbFunctions.TruncateTime(v.dtVenda) == agora).ToList();
+            var vendas = db.VendaRealizada.ToList();
 
             if (vendas != null && vendas.Count > 0)
             {
-                produtos = new ProdutoService().listarProdutos();
-                vendedores = new VendedorService().buscarVendedores();
-            }
+                produtos = new ProdutoService().ListarProdutos();
+                vendedores = new VendedorService().BuscarVendedores();
 
-            foreach(var venda in vendas)
-            {
-                venda.Produto = produtos.Where(p => p.cdProduto == venda.cdProduto).FirstOrDefault();
-                venda.Vendedor = vendedores.Where(v => v.cdVendedor == venda.cdVendedor).FirstOrDefault();
+                foreach (var venda in vendas)
+                {
+                    venda.Produto = produtos.Where(p => p.cdProduto == venda.cdProduto).FirstOrDefault();
+                    venda.Vendedor = vendedores.Where(v => v.cdVendedor == venda.cdVendedor).FirstOrDefault();
+                }
             }
 
             return vendas;
         }
 
-        public List<VendaRealizada> buscarVendas()
+        public List<VendaRealizada> BuscarVendas()
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             var vendas = db.VendaRealizada.ToList();
 
             return vendas;
         }
 
-        public void deletarVendaRealizada(VendaRealizada venda)
+        public void DeletarVendaRealizada(VendaRealizada venda)
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             db.VendaRealizada.Attach(venda);
             db.Entry(venda).State = EntityState.Deleted;
@@ -59,12 +65,14 @@ namespace TestePratico.Service
             db.SaveChanges();
         }
 
-        public void deletarVendaRealizada(List<Produto> produtos)
+        public void DeletarVendaRealizada(List<Produto> produtos)
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
-            var vendas = this.buscarVendas();
+            var vendas = this.BuscarVendas();
             var listVendas = new List<VendaRealizada>();
 
             produtos.ForEach(produto => {
@@ -84,6 +92,20 @@ namespace TestePratico.Service
                 });
             }
 
+            db.SaveChanges();
+        }
+
+        public void RealizarVenda(VendaRealizada vendaRealizada)
+        {
+            if (db == null)
+            {
+                db = new Modelo();
+            }
+
+            var total = vendaRealizada.qtdProduto * vendaRealizada.Produto.vrProduto;
+            vendaRealizada.ttlVenda = total;
+
+            db.VendaRealizada.Add(vendaRealizada);
             db.SaveChanges();
         }
     }

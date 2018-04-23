@@ -15,9 +15,9 @@ namespace TestePratico.Controllers
         //GET
         [HttpGet]
         [Route("comissao")]
-        public List<Comissao> buscarComissaoVendedor()
+        public List<Comissao> BuscarComissaoVendedor()
         {
-            return new ComissaoService().buscarComissoes();
+            return new ComissaoService().BuscarComissoes();
         }
     }
 }

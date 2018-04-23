@@ -14,15 +14,30 @@ namespace TestePratico.Controllers
         //GET
         [HttpGet]
         [Route("venda_realizada")]
-        public List<VendaRealizada> buscarVendasDia()
+        public List<VendaRealizada> BuscarVendasRealizadas()
         {
             try
             {
-                return new VendaRealizadaService().buscarVendasDia();
+                return new VendaRealizadaService().BuscarVendasRealizadas();
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        //POST
+        [HttpPost]
+        [Route("venda_realizada")]
+        public void RealizarVenda([FromBody]VendaRealizada vendaRealizada)
+        {
+            try
+            {
+                new VendaRealizadaService().RealizarVenda(vendaRealizada);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

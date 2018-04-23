@@ -15,11 +15,11 @@ namespace TestePratico.Controllers
         //POST
         [HttpPost]
         [Route("cadastrar")]
-        public void cadastrarVendedor([FromBody]Vendedor vendedor)
+        public void CadastrarVendedor([FromBody]Vendedor vendedor)
         {
             try
             {
-                new VendedorService().cadastrarVendedor(vendedor);
+                new VendedorService().CadastrarVendedor(vendedor);
             }
             catch(Exception e)
             {
@@ -30,11 +30,11 @@ namespace TestePratico.Controllers
         //GET
         [HttpGet]
         [Route("buscar")]
-        public List<Vendedor> buscarVendedores()
+        public List<Vendedor> BuscarVendedores()
         {
             try
             {
-                return new VendedorService().buscarVendedores();
+                return new VendedorService().BuscarVendedores();
             }
             catch (Exception e)
             {

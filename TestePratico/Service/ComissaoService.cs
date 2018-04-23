@@ -8,10 +8,10 @@ namespace TestePratico.Service
 {
     public class ComissaoService
     {
-        public List<Comissao> buscarComissoes()
+        public List<Comissao> BuscarComissoes()
         {
             var comissoes = new List<Comissao>();
-            var vendasDia = new VendaRealizadaService().buscarVendasDia();
+            var vendasDia = new VendaRealizadaService().BuscarVendasRealizadas();
 
             if (vendasDia != null && vendasDia.Count > 0)
             {
