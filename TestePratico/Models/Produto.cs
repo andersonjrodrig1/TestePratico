@@ -6,16 +6,20 @@ namespace TestePratico.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Produto")]
+    [Table("PRODUTO")]
     public partial class Produto
     {
         [Key]
+        [Column(name: "CD_PRODUTO", TypeName = "int")]
         public int cdProduto { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Column(name: "NM_PRODUTO", TypeName = "varchar")]
         public string nmProduto { get; set; }
 
+        [Required]
+        [Column(name: "VR_PRODUTO", TypeName = "decimal")]
         public decimal vrProduto { get; set; }
     }
 }

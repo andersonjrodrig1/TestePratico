@@ -7,13 +7,13 @@ namespace TestePratico.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial_Migration : IMigrationMetadata
+    public sealed partial class Initial_Create_Database : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Migration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Create_Database));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804230324570_Initial_Migration"; }
+            get { return "201804240416472_Initial_Create_Database"; }
         }
         
         string IMigrationMetadata.Source

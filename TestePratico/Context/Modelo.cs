@@ -18,6 +18,8 @@ namespace TestePratico.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new VendaRealizadaContext());
+            modelBuilder.Configurations.Add(new ProdutoContext());
+            modelBuilder.Configurations.Add(new VendedorContext());
 
             // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

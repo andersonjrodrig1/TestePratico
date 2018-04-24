@@ -11,12 +11,12 @@ using TestePratico.Service;
 
 namespace TestePratico.Controllers
 {
-    [RoutePrefix("api/produto")]
+    [RoutePrefix("api")]
     public class ProdutoController : ApiController
     {
         #region POST
         [HttpPost]
-        [Route("cadastrar")]
+        [Route("produto")]
         public void CadastrarProduto([FromBody]Produto produto)
         {
             try
@@ -30,7 +30,7 @@ namespace TestePratico.Controllers
         }
 
         [HttpPost]
-        [Route("export")]
+        [Route("produto/export")]
         public MemoryStream ExportExcel(List<Produto> produtos)
         {
             try
@@ -47,7 +47,7 @@ namespace TestePratico.Controllers
 
         #region GET
         [HttpGet]
-        [Route("listar")]
+        [Route("produto")]
         public List<Produto> ListarProdutos([FromUri]Produto produto)
         {
             try
@@ -61,7 +61,7 @@ namespace TestePratico.Controllers
         }
 
         [HttpGet]
-        [Route("listar/{nmProduto}")]
+        [Route("produto/{nmProduto}")]
         public List<Produto> ListarProdutosNome(string nmProduto)
         {
             try
@@ -75,7 +75,7 @@ namespace TestePratico.Controllers
         }
 
         [HttpGet]
-        [Route("listar/{vrProduto:decimal}")]
+        [Route("produto/{vrProduto:decimal}")]
         public List<Produto> ListarProdutosCodigo(decimal vrProduto)
         {
             try
@@ -92,7 +92,7 @@ namespace TestePratico.Controllers
 
         #region PUT
         [HttpPut]
-        [Route("atualizar/{cdProduto:int}")]
+        [Route("produto/{cdProduto:int}")]
         public void AtualizarProduto(int cdProduto, [FromBody]Produto produto)
         {
             try
@@ -109,7 +109,7 @@ namespace TestePratico.Controllers
 
         #region DELETE
         [HttpDelete]
-        [Route("deletar")]
+        [Route("produto")]
         public bool DeletarProduto([FromBody] List<Produto> produtos)
         {
             try

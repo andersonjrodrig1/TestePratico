@@ -10,6 +10,13 @@ namespace TestePratico.Context
 {
     public class ProdutoContext : EntityTypeConfiguration<Produto>
     {
-        public ProdutoContext() { }
+        public ProdutoContext()
+        {
+            ToTable("PRODUTO");
+            HasKey(b => b.cdProduto);
+            Property(b => b.cdProduto).HasColumnName("CD_PRODUTO").HasColumnType("int");
+            Property(b => b.nmProduto).HasColumnName("NM_PRODUTO").HasColumnType("varchar").HasMaxLength(50).IsRequired();
+            Property(b => b.vrProduto).HasColumnName("VR_PRODUTO").HasColumnType("decimal").IsRequired();
+        }
     }
 }

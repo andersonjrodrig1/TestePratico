@@ -9,12 +9,12 @@ using TestePratico.Service;
 
 namespace TestePratico.Controllers
 {
-    [RoutePrefix("api/vendedor")]
+    [RoutePrefix("api")]
     public class VendedorController : ApiController
     {
         //POST
         [HttpPost]
-        [Route("cadastrar")]
+        [Route("vendedor")]
         public void CadastrarVendedor([FromBody]Vendedor vendedor)
         {
             try
@@ -29,7 +29,7 @@ namespace TestePratico.Controllers
 
         //GET
         [HttpGet]
-        [Route("buscar")]
+        [Route("vendedor")]
         public List<Vendedor> BuscarVendedores()
         {
             try
