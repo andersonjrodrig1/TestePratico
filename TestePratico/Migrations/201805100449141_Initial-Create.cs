@@ -3,7 +3,7 @@ namespace TestePratico.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial_Create_Database : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -18,7 +18,7 @@ namespace TestePratico.Migrations
                 .PrimaryKey(t => t.CD_PRODUTO);
             
             CreateTable(
-                "dbo.VENDA_REALIZADA",
+                "dbo.VENDA",
                 c => new
                     {
                         CD_VENDA = c.Int(nullable: false, identity: true),
@@ -28,11 +28,7 @@ namespace TestePratico.Migrations
                         TTL_VENDA = c.Decimal(nullable: false, precision: 18, scale: 2),
                         DT_VENDA = c.DateTime(nullable: false, storeType: "date"),
                     })
-                .PrimaryKey(t => t.CD_VENDA)
-                .ForeignKey("dbo.PRODUTO", t => t.CD_PRODUTO)
-                .ForeignKey("dbo.VENDEDOR", t => t.CD_VENDEDOR)
-                .Index(t => t.CD_PRODUTO)
-                .Index(t => t.CD_VENDEDOR);
+                .PrimaryKey(t => t.CD_VENDA);
             
             CreateTable(
                 "dbo.VENDEDOR",
@@ -48,12 +44,8 @@ namespace TestePratico.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.VENDA_REALIZADA", "CD_VENDEDOR", "dbo.VENDEDOR");
-            DropForeignKey("dbo.VENDA_REALIZADA", "CD_PRODUTO", "dbo.PRODUTO");
-            DropIndex("dbo.VENDA_REALIZADA", new[] { "CD_VENDEDOR" });
-            DropIndex("dbo.VENDA_REALIZADA", new[] { "CD_PRODUTO" });
             DropTable("dbo.VENDEDOR");
-            DropTable("dbo.VENDA_REALIZADA");
+            DropTable("dbo.VENDA");
             DropTable("dbo.PRODUTO");
         }
     }

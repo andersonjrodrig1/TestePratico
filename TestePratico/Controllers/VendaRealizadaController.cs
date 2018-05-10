@@ -14,7 +14,7 @@ namespace TestePratico.Controllers
         //GET
         [HttpGet]
         [Route("venda_realizada")]
-        public List<VendaRealizada> BuscarVendasRealizadas()
+        public List<Venda> BuscarVendasRealizadas()
         {
             try
             {

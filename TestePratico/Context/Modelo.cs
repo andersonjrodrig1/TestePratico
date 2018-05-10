@@ -9,21 +9,24 @@ namespace TestePratico.Context
 
     public partial class Modelo : DbContext
     {
-        public Modelo() : base("name=Modelo") { }
+        public Modelo() : base("name=Modelo")
+        {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+        }
 
         public virtual DbSet<Produto> Produto { get; set; }
-        public virtual DbSet<VendaRealizada> VendaRealizada { get; set; }
+        public virtual DbSet<Venda> Venda { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new VendaRealizadaContext());
-            modelBuilder.Configurations.Add(new ProdutoContext());
-            modelBuilder.Configurations.Add(new VendedorContext());
-
-            // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            modelBuilder.Configurations.Add(new VendaContext());
+            modelBuilder.Configurations.Add(new ProdutoContext());
+            modelBuilder.Configurations.Add(new VendedorContext());
         }
     }
 }

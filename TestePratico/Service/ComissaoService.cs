@@ -10,6 +10,7 @@ namespace TestePratico.Service
     {
         public List<Comissao> BuscarComissoes()
         {
+            /*
             var comissoes = new List<Comissao>();
             var vendasDia = new VendaRealizadaService().BuscarVendasRealizadas();
 
@@ -40,6 +41,9 @@ namespace TestePratico.Service
             }
 
             return comissoes;
+            */
+
+            return null;
         }
     }
 }

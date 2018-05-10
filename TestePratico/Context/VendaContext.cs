@@ -8,11 +8,11 @@ using TestePratico.Models;
 
 namespace TestePratico.Context
 {
-    public class VendaRealizadaContext : EntityTypeConfiguration<VendaRealizada>
+    public class VendaContext : EntityTypeConfiguration<Venda>
     {
-        public VendaRealizadaContext()
+        public VendaContext()
         {
-            ToTable("VENDA_REALIZADA");
+            ToTable("VENDA");
             HasKey(b => b.cdVenda);
             Property(b => b.cdVenda).HasColumnName("CD_VENDA").HasColumnType("int");
             Property(b => b.cdProduto).HasColumnName("CD_PRODUTO").HasColumnType("int").IsRequired();

@@ -13,7 +13,7 @@ namespace TestePratico.Service
     {
         private Modelo db = null;
 
-        public List<VendaRealizada> BuscarVendasRealizadas()
+        public List<Venda> BuscarVendasRealizadas()
         {
             if (db == null)
             {
@@ -23,43 +23,44 @@ namespace TestePratico.Service
             List<Produto> produtos = null;
             List<Vendedor> vendedores = null;
 
-            var vendas = db.VendaRealizada.ToList();
+            var vendas = db.Venda.ToList();
 
             if (vendas != null && vendas.Count > 0)
             {
                 produtos = new ProdutoService().ListarProdutos();
                 vendedores = new VendedorService().BuscarVendedores();
-
+                /*
                 foreach (var venda in vendas)
                 {
                     venda.Produto = produtos.Where(p => p.cdProduto == venda.cdProduto).FirstOrDefault();
                     venda.Vendedor = vendedores.Where(v => v.cdVendedor == venda.cdVendedor).FirstOrDefault();
                 }
+                */
             }
 
             return vendas;
         }
 
-        public List<VendaRealizada> BuscarVendas()
+        public List<Venda> BuscarVendas()
         {
             if (db == null)
             {
                 db = new Modelo();
             }
 
-            var vendas = db.VendaRealizada.ToList();
+            var vendas = db.Venda.ToList();
 
             return vendas;
         }
 
-        public void DeletarVendaRealizada(VendaRealizada venda)
+        public void DeletarVendaRealizada(Venda venda)
         {
             if (db == null)
             {
                 db = new Modelo();
             }
 
-            db.VendaRealizada.Attach(venda);
+            db.Venda.Attach(venda);
             db.Entry(venda).State = EntityState.Deleted;
 
             db.SaveChanges();
@@ -73,7 +74,7 @@ namespace TestePratico.Service
             }
 
             var vendas = this.BuscarVendas();
-            var listVendas = new List<VendaRealizada>();
+            var listVendas = new List<Venda>();
 
             produtos.ForEach(produto => {
                 var vds = vendas.Where(v => v.cdProduto == produto.cdProduto).ToList();
@@ -86,9 +87,9 @@ namespace TestePratico.Service
             {
                 listVendas.ForEach(v =>
                 {
-                    db.VendaRealizada.Add(v);
+                    db.Venda.Add(v);
                     db.Entry(v).State = EntityState.Deleted;
-                    db.VendaRealizada.Remove(v);
+                    db.Venda.Remove(v);
                 });
             }
 
@@ -97,6 +98,7 @@ namespace TestePratico.Service
 
         public void RealizarVenda(VendaRealizada vendaRealizada)
         {
+            /*
             if (db == null)
             {
                 db = new Modelo();
@@ -107,6 +109,7 @@ namespace TestePratico.Service
 
             db.VendaRealizada.Add(vendaRealizada);
             db.SaveChanges();
+            */
         }
     }
 }
