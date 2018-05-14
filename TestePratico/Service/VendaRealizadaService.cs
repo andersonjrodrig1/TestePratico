@@ -96,20 +96,34 @@ namespace TestePratico.Service
             db.SaveChanges();
         }
 
-        public void RealizarVenda(VendaRealizada vendaRealizada)
+        public void RealizarVenda(Venda venda)
         {
-            /*
             if (db == null)
             {
                 db = new Modelo();
             }
 
-            var total = vendaRealizada.qtdProduto * vendaRealizada.Produto.vrProduto;
-            vendaRealizada.ttlVenda = total;
+            var cdProduto = venda.cdProduto;
+            var produto = db.Produto.Where(p => p.cdProduto == cdProduto).FirstOrDefault();
 
-            db.VendaRealizada.Add(vendaRealizada);
+            if (produto == null)
+            {
+                throw new Exception("Produto não encontrado");
+            }
+
+            var cdVendedor = venda.cdVendedor;
+            var vendedor = db.Vendedor.Where(v => v.cdVendedor == cdVendedor).FirstOrDefault();
+
+            if (vendedor == null)
+            {
+                throw new Exception("Vendedor não encontrado");
+            }
+
+            var total = venda.qtdProduto * produto.vrProduto;
+            venda.ttlVenda = total;
+
+            db.Venda.Add(venda);
             db.SaveChanges();
-            */
         }
     }
 }

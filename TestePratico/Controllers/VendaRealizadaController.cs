@@ -13,7 +13,7 @@ namespace TestePratico.Controllers
     {
         //GET
         [HttpGet]
-        [Route("venda_realizada")]
+        [Route("venda")]
         public List<Venda> BuscarVendasRealizadas()
         {
             try
@@ -28,12 +28,12 @@ namespace TestePratico.Controllers
 
         //POST
         [HttpPost]
-        [Route("venda_realizada")]
-        public void RealizarVenda([FromBody]VendaRealizada vendaRealizada)
+        [Route("venda")]
+        public void RealizarVenda([FromBody]Venda venda)
         {
             try
             {
-                new VendaRealizadaService().RealizarVenda(vendaRealizada);
+                new VendaRealizadaService().RealizarVenda(venda);
             }
             catch(Exception ex)
             {

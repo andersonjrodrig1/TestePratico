@@ -19,7 +19,7 @@ namespace TestePratico.Migrations
             
             CreateTable(
                 "dbo.VENDA",
-                c => new
+                 c => new
                     {
                         CD_VENDA = c.Int(nullable: false, identity: true),
                         CD_PRODUTO = c.Int(nullable: false),
