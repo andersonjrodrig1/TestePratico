@@ -110,11 +110,26 @@ namespace TestePratico.Controllers
         #region DELETE
         [HttpDelete]
         [Route("produto")]
-        public bool DeletarProduto([FromBody] List<Produto> produtos)
+        public bool DeletarProdutos([FromBody] List<Produto> produtos)
         {
             try
             {
-                new ProdutoService().DeletarProduto(produtos);
+                new ProdutoService().DeletarProdutos(produtos);
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("produto/{cdProduto:int}")]
+        public bool DeletarProduto(int cdProduto)
+        {
+            try
+            {
+                new ProdutoService().DeletarProduto(new Produto() { cdProduto = cdProduto });
                 return true;
             }
             catch (Exception e)

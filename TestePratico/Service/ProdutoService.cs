@@ -70,7 +70,15 @@ namespace TestePratico.Repository
             return produtos;
         }
 
-        public void DeletarProduto(List<Produto> produtos)
+        public void DeletarProduto(Produto produto)
+        {
+            var produtos = new List<Produto>();
+            produtos.Add(produto);
+
+            this.DeletarProdutos(produtos);
+        }
+
+        public void DeletarProdutos(List<Produto> produtos)
         {
             new VendaRealizadaService().DeletarVendaRealizada(produtos);
 
