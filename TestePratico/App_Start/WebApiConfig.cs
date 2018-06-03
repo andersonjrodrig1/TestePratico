@@ -15,7 +15,7 @@ namespace TestePratico
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.IgnoreRoute("listar", ".html");
+            config.Routes.IgnoreRoute("produto", ".html");
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
