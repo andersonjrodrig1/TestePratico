@@ -13,57 +13,80 @@ namespace TestePratico.Repository
     {
         private Modelo db = null;
 
-        public void CadastrarProduto(Produto produto)
+        public Produto CadastrarProduto(Produto produto)
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             db.Produto.Add(produto);
             db.SaveChanges();
+
+            return db.Produto.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
         }
 
         public List<Produto> BuscarProdutos(Produto produto)
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             List<Produto> produtos = null;
 
-            if (produto != null) {
+            if (produto != null)
+            {
                 if (produto.vrProduto > 0 && !string.IsNullOrEmpty(produto.nmProduto))
+                {
                     produtos = db.Produto.Where(p => p.vrProduto == produto.vrProduto && p.nmProduto.ToUpper().Contains(p.nmProduto.ToUpper())).ToList();
+                }
                 else
+                {
                     produtos = this.BuscarProdutoPorFiltro(produto);
+                }
             }
             else
+            {
                 produtos = this.ListarProdutos();
+            }
 
             return produtos;
         }
 
-        public void AtualizarProduto(int cdProduto, Produto produto)
+        public Produto AtualizarProduto(int cdProduto, Produto produto)
         {
             if (cdProduto != produto.cdProduto)
+            {
                 throw new Exception("Dados incosistentes!");
+            }
 
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             var produtos = this.ListarProdutos();
             var prod = produtos.Where(p => p.cdProduto == produto.cdProduto).FirstOrDefault();
 
             if (prod == null)
+            {
                 throw new Exception("Produto não encontrado!");
+            }
 
             db.Produto.Add(produto);
             db.Entry(produto).State = EntityState.Modified;
-            db.SaveChanges();                
+            db.SaveChanges();
+
+            return produto;
         }
 
         public List<Produto> ListarProdutos()
         {
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             var produtos = db.Produto.ToList();
 
@@ -83,7 +106,9 @@ namespace TestePratico.Repository
             new VendaRealizadaService().DeletarVendaRealizada(produtos);
 
             if (db == null)
+            {
                 db = new Modelo();
+            }
 
             produtos.ForEach(p => {
                 db.Produto.Attach(p);
@@ -104,7 +129,9 @@ namespace TestePratico.Repository
                 produtos = listProdutos.Where(l => l.vrProduto >= produto.vrProduto && l.vrProduto <= vrProduto).ToList();
             }
             else if (!string.IsNullOrEmpty(produto.nmProduto))
+            {
                 produtos = listProdutos.Where(l => l.nmProduto.ToLower().Contains(produto.nmProduto.ToLower())).ToList();
+            }
 
             return produtos;
         }

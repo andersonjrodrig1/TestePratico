@@ -17,15 +17,15 @@ namespace TestePratico.Controllers
         #region POST
         [HttpPost]
         [Route("produto")]
-        public void CadastrarProduto([FromBody]Produto produto)
+        public Produto CadastrarProduto([FromBody]Produto produto)
         {
             try
             {
-                new ProdutoService().CadastrarProduto(produto);
+                return new ProdutoService().CadastrarProduto(produto);
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -37,9 +37,9 @@ namespace TestePratico.Controllers
             {
                 return new ExcelService().ExportExcel<Produto>(produtos);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -54,9 +54,9 @@ namespace TestePratico.Controllers
             {
                 return new ProdutoService().BuscarProdutos(produto);
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -68,9 +68,9 @@ namespace TestePratico.Controllers
             {
                 return new ProdutoService().BuscarProdutos(new Produto() { nmProduto = nmProduto });
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -82,9 +82,9 @@ namespace TestePratico.Controllers
             {
                 return new ProdutoService().BuscarProdutos(new Produto() { vrProduto = vrProduto });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -93,15 +93,15 @@ namespace TestePratico.Controllers
         #region PUT
         [HttpPut]
         [Route("produto/{cdProduto:int}")]
-        public void AtualizarProduto(int cdProduto, [FromBody]Produto produto)
+        public Produto AtualizarProduto(int cdProduto, [FromBody]Produto produto)
         {
             try
             {
-                new ProdutoService().AtualizarProduto(cdProduto, produto);
+                return new ProdutoService().AtualizarProduto(cdProduto, produto);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -117,9 +117,9 @@ namespace TestePratico.Controllers
                 new ProdutoService().DeletarProdutos(produtos);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
@@ -132,9 +132,9 @@ namespace TestePratico.Controllers
                 new ProdutoService().DeletarProduto(new Produto() { cdProduto = cdProduto });
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw ex;
             }
         }
 
